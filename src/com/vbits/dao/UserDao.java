@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.vbits.model.User;
-
+//@Jelena - this is my DAO class - Vlajko
 @Component("userDao")
 public class UserDao {
 
