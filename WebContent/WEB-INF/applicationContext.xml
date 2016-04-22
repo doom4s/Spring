@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<context:property-placeholder location="/validation.properties"/>
+	<context:component-scan base-package="com.vbits.*" />
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> 
+		<property name="mappings"> <value> /welcome.jsp=welcomeC /hello.jsp=helloC 
+		/good.jsp=goodC </value> </property> <property name="order" value="0" /> 
+		</bean> <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"> 
+		<property name="caseSensitive" value="true" /> <property name="order" value="1" 
+		/> </bean> -->
+	<bean id="welcomeC" name="/welcome.jsp" class="com.vbits.controller.WelcomeC">
+		<property name="userDao" ref="userDao" />
+	</bean>
+	<bean id="helloC" name="/hello.jsp" class="com.vbits.controller.HelloC" />
+	<bean id="goodC" name="/good.jsp" class="com.vbits.controller.GoodC" />
+	<bean id="registrationC" name="/registration.jsp" class="com.vbits.controller.RegistrationC">
+		<property name="userDao" ref="userDao" />
+		<property name="registrationFormValidator" ref="registrationFormValidator"/>
+	</bean>
+	<bean id="accessDeniedC" name="/accessDenied.jsp" class="com.vbits.controller.AccessDeniedC" />
+	<bean id="dashboardC" name="/dashboard.jsp" class="com.vbits.controller.DashboardC">
+		<property name="userDao" ref="userDao" />
+	</bean>
+	<bean id="userDao" name="userDao" class="com.vbits.dao.UserDao"
+		scope="singleton" />
+	<bean id="user" class="com.vbits.model.User" />
+	<bean id="registrationFormValidator" class="com.vbits.services.RegistrationFormValidator">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<mvc:annotation-driven />
+
+</beans>
